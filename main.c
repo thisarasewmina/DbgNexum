@@ -17,6 +17,7 @@
     #define DBG_PRINT(fmt, ...) do { } while (0)
 #endif
 
+// global initialization
 HANDLE  g_hTargetProcess = NULL;
 HANDLE  g_hTargetThread = NULL;
 DWORD   g_dwThreadId = 0;
